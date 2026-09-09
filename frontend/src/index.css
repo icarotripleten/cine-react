@@ -1,0 +1,586 @@
+/* ============================================================
+   WEBINAR REACT — CineReact (Catálogo de Filmes)
+   Design system / estilos globais — src/index.css
+
+   Este arquivo é COLADO no início da aula (logo após o setup do
+   Vite). A partir daqui o app já tem aparência; nós focamos no React.
+   As classes utilitárias usadas pelo React estão espalhadas por seção.
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- Variáveis de Design (tema cinema) ---------- */
+:root {
+  --cor-fundo: #0f1117;
+  --cor-superficie: #1a1d29;
+  --cor-superficie-2: #232735;
+  --cor-borda: #2e3344;
+  --cor-primaria: #e50914;
+  /* vermelho "cinema" */
+  --cor-secundaria: #f5c518;
+  /* amarelo "nota" */
+  --cor-texto: #f5f6fa;
+  --cor-texto-suave: #9aa0b4;
+  --cor-sucesso: #2ecc71;
+  --raio: 12px;
+  --sombra: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --transicao: all 0.2s ease;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 20px 32px;
+  background: linear-gradient(180deg, #181b25, var(--cor-superficie));
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header__marca {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.header__logo {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--cor-primaria);
+}
+
+.header__tagline {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.header__favoritos {
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ---------- Conteúdo principal ---------- */
+.conteudo {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 32px;
+}
+
+/* ---------- Controles (busca + filtro) ---------- */
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 240px;
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 1rem;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  outline: none;
+  transition: var(--transicao);
+}
+
+.search-bar__input::placeholder {
+  color: var(--cor-texto-suave);
+}
+
+.search-bar__input:focus {
+  border-color: var(--cor-primaria);
+}
+
+.filtro-genero {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cor-texto-suave);
+}
+
+.filtro-genero__select {
+  padding: 12px 14px;
+  font-size: 1rem;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+}
+
+/* ---------- Formulário: adicionar filme (TEMA 6 B) ---------- */
+.novo-filme {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.novo-filme__titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.novo-filme__campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  outline: none;
+  transition: var(--transicao);
+}
+
+.input::placeholder {
+  color: var(--cor-texto-suave);
+}
+
+.input:focus {
+  border-color: var(--cor-primaria);
+}
+
+.btn-adicionar {
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--cor-primaria);
+  border: none;
+  border-radius: var(--raio);
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.btn-adicionar:hover {
+  filter: brightness(1.1);
+}
+
+/* ---------- Estado de carregamento (TEMA 5 B) ---------- */
+.carregando {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: 48px 0;
+  font-size: 1.1rem;
+}
+
+/* ---------- Mensagem de lista vazia ---------- */
+.vazio {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: 48px 0;
+  font-size: 1.1rem;
+}
+
+/* ---------- Catálogo (grid de cards) ---------- */
+.catalogo {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+/* ---------- Card de filme ---------- */
+.movie-card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  transition: var(--transicao);
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
+  border-color: #3a4156;
+}
+
+/* TEMA 5 — estado visual quando o filme está favoritado */
+.movie-card--favorito {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 1px var(--cor-primaria), var(--sombra);
+}
+
+/* ---------- Pôster (placeholder em CSS) ---------- */
+.poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster__inicial {
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* TEMA 3 — selo "Destaque" para notas altas */
+.badge-destaque {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--cor-secundaria);
+  color: #1a1a1a;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* ---------- Corpo do card ---------- */
+.movie-card__corpo {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.movie-card__titulo {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.movie-card__meta {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.movie-card__nota {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cor-secundaria);
+}
+
+/* ---------- Botão favoritar ---------- */
+.btn-favoritar {
+  margin-top: auto;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.btn-favoritar:hover {
+  background: #2c3142;
+}
+
+/* botão no estado "favoritado" (card com a classe modificadora) */
+.movie-card--favorito .btn-favoritar {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  color: #fff;
+}
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  text-align: center;
+  padding: 24px;
+  color: var(--cor-texto-suave);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* ============================================================
+   TEMA 8 e 9 — Roteamento, páginas e dados da API
+   ============================================================ */
+
+/* Menu de navegação no header (TEMA 8) */
+.header__nav {
+  display: flex;
+  gap: 8px;
+}
+
+.header__link {
+  color: var(--cor-texto-suave);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: var(--transicao);
+}
+
+.header__link:hover {
+  color: var(--cor-texto);
+  background: var(--cor-superficie-2);
+}
+
+/* O NavLink adiciona a classe "active" no link da rota atual */
+.header__link.active {
+  color: #fff;
+  background: var(--cor-primaria);
+}
+
+/* Links do card (pôster e título) para a página de detalhes (TEMA 8) */
+.movie-card__link,
+.movie-card__titulo-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.movie-card__titulo-link:hover .movie-card__titulo {
+  color: var(--cor-secundaria);
+}
+
+/* Pôster real vindo da API (TEMA 9) */
+.poster__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mensagem de erro da API (TEMA 9) */
+.erro {
+  text-align: center;
+  color: var(--cor-primaria);
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid var(--cor-primaria);
+  border-radius: var(--raio);
+  padding: 20px;
+  font-weight: 600;
+}
+
+/* Links genéricos dentro do conteúdo */
+.link {
+  color: var(--cor-secundaria);
+  font-weight: 600;
+}
+
+/* Título de página (ex.: Favoritos) */
+.pagina__titulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+/* Página de detalhes (TEMA 8) */
+.btn-voltar {
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.btn-voltar:hover {
+  background: #2c3142;
+}
+
+.detalhe__conteudo {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.detalhe__poster {
+  position: relative;
+  width: 240px;
+  max-width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--raio);
+  overflow: hidden;
+  background: linear-gradient(135deg, #334155, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.detalhe__info {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detalhe__titulo {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.detalhe__resumo {
+  color: var(--cor-texto-suave);
+  line-height: 1.6;
+}
+
+.detalhe__info .btn-favoritar {
+  max-width: 240px;
+  margin-top: 8px;
+}
+
+/* Página 404 (TEMA 8) */
+.nao-encontrado {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.nao-encontrado__codigo {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--cor-primaria);
+}
+
+/* ---------- TEMA 11 — Autenticação (header + login) ---------- */
+.header__usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__ola {
+  color: var(--cor-texto-suave);
+  font-size: 0.95rem;
+}
+
+.header__sair {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.header__sair:hover {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+.login {
+  max-width: 380px;
+  margin: 40px auto;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 32px;
+  box-shadow: var(--sombra);
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.login__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.login__input {
+  padding: 12px 16px;
+  font-size: 1rem;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  outline: none;
+  transition: var(--transicao);
+}
+
+.login__input:focus {
+  border-color: var(--cor-primaria);
+}
+
+.login__dica {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  text-align: center;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 600px) {
+
+  .header,
+  .conteudo {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .catalogo {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+  }
+}
