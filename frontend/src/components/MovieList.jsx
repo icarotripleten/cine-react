@@ -6,7 +6,7 @@ function MovieList({ filmes }) {
 
             <ul className="catalogo">
                 {
-                    filmes.map((filme) => <MovieCard filme={filme} key={filme.id} />)
+                    filmes.map((filme) => <MovieCard filme={filme} key={filme._id} />)
                 }
             </ul>
         </>

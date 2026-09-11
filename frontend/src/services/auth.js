@@ -1,21 +1,61 @@
-const USUARIOS = [
-    { usuario: "admin", senha: "123", role: "admin" },
-    { usuario: "ana", senha: "123", role: "user" },
-];
+const URL_API = 'http://localhost:3001'
 
-export async function login(usuario, senha) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const encontrado = USUARIOS.find(
-        (u) => u.usuario === usuario && u.senha === senha
-    );
+export async function getUserInformation(token) {
+    console.log('cheguei aqui');
+    const response = await fetch(`${URL_API}/users/me`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
 
-    if (!encontrado) {
-        throw new Error("Usuário ou senha inválidos.");
+    console.log('response', response);
+
+    if (!response.ok) {
+        throw new Error("Falha ao carregar dados do usuário logado", response.data)
     }
 
+    return response.json();
+}
+
+export async function login(email, password) {
+    const response = await fetch(
+        `${URL_API}/auth/signin`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password })
+        })
+
+    if (!response.ok) {
+        throw new Error('Email ou senha inválidos');
+    }
+
+    const { token } = await response.json();
+    const user = await getUserInformation(token);
+
     return {
-        usuario: encontrado.usuario,
-        role: encontrado.role,
-        token: `fake-token-${encontrado.usuario}-${encontrado.role}`,
-    };
+        token,
+        usuario: user.name || user.email,
+        role: user.role
+    }
+}
+
+export async function cadastrar(email, password) {
+    const response = await fetch(
+        `${URL_API}/auth/signup`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password })
+        })
+
+    if (!response.ok) {
+        throw new Error('Não foi possível cadastrar o usuário');
+    }
+
+    return login(email, password)
 }

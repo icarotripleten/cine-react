@@ -16,7 +16,7 @@ async function signup({ email, password, name, role }) {
 }
 
 async function signin({ email, password }) {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select('+password');
 
     if (!user) throw new Error('Email ou senha incorretos!');
 

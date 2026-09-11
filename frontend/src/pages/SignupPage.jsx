@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext.js";
-import { login as loginApi } from "../services/auth.js";
+import { cadastrar as cadastrarApi } from "../services/auth.js";
 
-function LoginPage() {
-    const [usuario, setUsuario] = useState("");
+function SignupPage() {
+    const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [erro, setErro] = useState("");
     const [enviando, setEnviando] = useState(false);
@@ -17,8 +17,7 @@ function LoginPage() {
         setErro("");
         setEnviando(true);
         try {
-            const autenticado = await loginApi(usuario, senha);
-
+            const autenticado = await cadastrarApi(email, senha);
             entrar(autenticado);
             navigate("/");
         } catch (e) {
@@ -30,16 +29,17 @@ function LoginPage() {
 
     return (
         <div className="login">
-            <h2 className="pagina__titulo">Entrar</h2>
+            <h2 className="pagina__titulo">Criar conta</h2>
 
             <form className="login__form" onSubmit={aoEnviar}>
                 <label className="login__campo">
-                    Usuário
+                    Email
                     <input
+                        type="email"
                         className="login__input"
-                        value={usuario}
-                        onChange={(e) => setUsuario(e.target.value)}
-                        placeholder="admin"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="voce@email.com"
                     />
                 </label>
 
@@ -50,18 +50,25 @@ function LoginPage() {
                         className="login__input"
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
-                        placeholder="123"
+                        placeholder="mínimo 6 caracteres"
                     />
                 </label>
 
                 {erro && <p className="erro">{erro}</p>}
 
                 <button type="submit" className="btn-favoritar" disabled={enviando}>
-                    {enviando ? "Entrando..." : "Entrar"}
+                    {enviando ? "Criando..." : "Cadastrar"}
                 </button>
             </form>
+
+            <p className="login__dica">
+                Já tem conta?{" "}
+                <Link className="link" to="/login">
+                    Entrar
+                </Link>
+            </p>
         </div>
     );
 }
 
-export default LoginPage;
+export default SignupPage;

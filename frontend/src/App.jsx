@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import { getMovies } from './services/api.js';
 import LoginPage from './pages/LoginPage.jsx';
+import SignupPage from './pages/SignupPage.jsx';
 import { AuthContext } from './contexts/AuthContext.js';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
@@ -60,13 +61,14 @@ function App() {
   useEffect(() => {
     if (usuario) {
       localStorage.setItem("usuario", JSON.stringify(usuario));
+      carregarFilmes();
     } else {
       localStorage.removeItem("usuario");
     }
   }, [usuario]);
 
   const location = useLocation();
-  const naTelaDeLogin = location.pathname === "/login";
+  const naTelaDeLoginOuCadastro = location.pathname === "/login" || location.pathname === '/signup';
 
   return (
     <AuthContext.Provider value={{ usuario, entrar, sair }}>
@@ -75,10 +77,11 @@ function App() {
         <div className="app">
           <div id="div_name"></div>
           <main className="conteudo">
-            {!naTelaDeLogin && <Header />}
+            {!naTelaDeLoginOuCadastro && <Header />}
 
             <Routes>
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
               <Route
                 path="/"
                 element={

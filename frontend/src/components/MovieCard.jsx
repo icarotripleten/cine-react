@@ -27,7 +27,7 @@ function MovieCard({ filme }) {
             <div className="movie-card__corpo">
                 <h3 className="movie-card__titulo">{titulo}</h3>
                 <p className="movie-card__meta">{`${genero} • ${ano}`}</p>
-                <p className="movie-card__nota">{`Nota: ${nota}`}</p>
+                <p className="movie-card__nota">{`Nota: ${nota || '-'}`}</p>
             </div>
             <button
                 id="botao-card"
