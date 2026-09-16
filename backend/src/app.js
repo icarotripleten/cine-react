@@ -7,7 +7,7 @@ const app = express()
 const port = 3001
 const routes = require('./routes')
 
-mongoose.connect('mongodb://localhost:27017/cinereactdb')
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Banco de dados conectado com sucesso!');
     })
