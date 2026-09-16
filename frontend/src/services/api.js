@@ -1,4 +1,4 @@
-const URL_API = 'http://localhost:3001';
+const URL_API = import.meta.env.VITE_API_URL;
 
 export async function getMovies() {
     const { token } = JSON.parse(localStorage.getItem('usuario'));

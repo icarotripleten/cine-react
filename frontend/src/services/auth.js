@@ -1,4 +1,4 @@
-const URL_API = 'http://localhost:3001'
+const URL_API = import.meta.env.VITE_API_URL;
 
 export async function getUserInformation(token) {
     console.log('cheguei aqui');
