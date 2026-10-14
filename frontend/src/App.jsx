@@ -68,7 +68,7 @@ function App() {
   }, [usuario]);
 
   const location = useLocation();
-  const naTelaDeLoginOuCadastro = location.pathname === "/login" || location.pathname === '/signup';
+  const mostrarHeader = location.pathname === "/" || location.pathname === "/favoritos";
 
   return (
     <AuthContext.Provider value={{ usuario, entrar, sair }}>
@@ -77,7 +77,7 @@ function App() {
         <div className="app">
           <div id="div_name"></div>
           <main className="conteudo">
-            {!naTelaDeLoginOuCadastro && <Header />}
+            {mostrarHeader && <Header />}
 
             <Routes>
               <Route path="/login" element={<LoginPage />} />

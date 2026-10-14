@@ -7,8 +7,8 @@ const auth = require("../middlewares/auth");
 const { validarCadastro, validarLogin } = require("../middlewares/validation");
 const { NotFoundError } = require("../errors");
 
-router.post("/signup", validarCadastro, createUser);
-router.post("/signin", validarLogin, login);
+router.post("/auth/signup", validarCadastro, createUser);
+router.post("/auth/signin", validarLogin, login);
 
 router.use("/movies", moviesRoutes);
 

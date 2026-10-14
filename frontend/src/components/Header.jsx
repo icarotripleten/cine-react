@@ -1,9 +1,17 @@
 import { useContext } from "react";
 import { FavoritosContext } from "../contexts/FavoritosContext";
-import { NavLink } from 'react-router-dom'
+import { AuthContext } from "../contexts/AuthContext";
+import { NavLink, useNavigate } from 'react-router-dom'
 
 function Header({ }) {
     const { favoritosIds } = useContext(FavoritosContext);
+    const { sair } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    function aoSair() {
+        sair();
+        navigate("/login");
+    }
 
     return (
         <>
@@ -18,8 +26,14 @@ function Header({ }) {
                     <NavLink to="/favoritos" className="header__link">Favoritos</NavLink>
                 </nav>
 
-                <div className="header__favoritos" id="div_name">
-                    {`Favoritos: ${favoritosIds.length}`}
+                <div className="header__usuario">
+                    <div className="header__favoritos" id="div_name">
+                        {`Favoritos: ${favoritosIds.length}`}
+                    </div>
+
+                    <button type="button" className="header__sair" onClick={aoSair}>
+                        Sair
+                    </button>
                 </div>
             </header>
         </>

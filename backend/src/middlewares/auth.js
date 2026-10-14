@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const { UnauthorizedError } = require("../errors");
 
 const { JWT_SECRET = "dev-secret-cinereact" } = process.env;

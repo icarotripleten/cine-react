@@ -482,8 +482,13 @@ body {
   margin-top: 8px;
 }
 
-/* Página 404 (TEMA 8) */
+/* Página 404 (TEMA 8): centralizada na horizontal e na vertical */
+.conteudo:has(.nao-encontrado) {
+  display: flex;
+}
+
 .nao-encontrado {
+  margin: auto;
   text-align: center;
   padding: 60px 0;
 }

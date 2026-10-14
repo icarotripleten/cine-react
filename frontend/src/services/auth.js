@@ -1,14 +1,11 @@
 const URL_API = import.meta.env.VITE_API_URL;
 
 export async function getUserInformation(token) {
-    console.log('cheguei aqui');
     const response = await fetch(`${URL_API}/users/me`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
     })
-
-    console.log('response', response);
 
     if (!response.ok) {
         throw new Error("Falha ao carregar dados do usuário logado", response.data)
@@ -37,7 +34,7 @@ export async function login(email, password) {
 
     return {
         token,
-        usuario: user.name || user.email,
+        usuario: user.nome || user.email,
         role: user.role
     }
 }

@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext.js";
 import { login as loginApi } from "../services/auth.js";
 
 function LoginPage() {
-    const [usuario, setUsuario] = useState("");
+    const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [erro, setErro] = useState("");
     const [enviando, setEnviando] = useState(false);
@@ -17,7 +17,7 @@ function LoginPage() {
         setErro("");
         setEnviando(true);
         try {
-            const autenticado = await loginApi(usuario, senha);
+            const autenticado = await loginApi(email, senha);
 
             entrar(autenticado);
             navigate("/");
@@ -34,12 +34,13 @@ function LoginPage() {
 
             <form className="login__form" onSubmit={aoEnviar}>
                 <label className="login__campo">
-                    Usuário
+                    Email
                     <input
+                        type="email"
                         className="login__input"
-                        value={usuario}
-                        onChange={(e) => setUsuario(e.target.value)}
-                        placeholder="admin"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="voce@email.com"
                     />
                 </label>
 
@@ -50,7 +51,7 @@ function LoginPage() {
                         className="login__input"
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
-                        placeholder="123"
+                        placeholder="sua senha"
                     />
                 </label>
 
@@ -60,6 +61,13 @@ function LoginPage() {
                     {enviando ? "Entrando..." : "Entrar"}
                 </button>
             </form>
+
+            <p className="login__dica">
+                Não tem conta?{" "}
+                <Link className="link" to="/signup">
+                    Cadastre-se
+                </Link>
+            </p>
         </div>
     );
 }
