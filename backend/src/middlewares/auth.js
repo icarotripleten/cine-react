@@ -1,24 +1,23 @@
-const jwt = require('jsonwebtoken');
+const { UnauthorizedError } = require("../errors");
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const { JWT_SECRET = "dev-secret-cinereact" } = process.env;
 
 module.exports = (req, res, next) => {
-    const { authorization } = req.headers;
+  const { authorization } = req.headers;
 
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-        return res.status(401).send({ message: 'Token inválido!' });
-    }
+  if (!authorization || !authorization.startsWith("Bearer ")) {
+    return next(new UnauthorizedError("Token nao enviado"));
+  }
 
-    const token = authorization.replace('Bearer ', "");
+  const token = authorization.replace("Bearer ", "");
 
-    let payload;
+  let payload;
+  try {
+    payload = jwt.verify(token, JWT_SECRET);
+  } catch (e) {
+    return next(new UnauthorizedError("Token invalido"));
+  }
 
-    try {
-        payload = jwt.verify(token, JWT_SECRET);
-    } catch (error) {
-        return res.status(401).send({ message: 'Token inválido!' });
-    }
-
-    req.user = payload;
-    next();
-}
+  req.user = payload;
+  return next();
+};

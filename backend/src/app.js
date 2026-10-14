@@ -1,25 +1,21 @@
-require('dotenv').config();
-const cors = require('cors');
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const cors = require("cors");
+const { errors } = require("celebrate");
+const routes = require("./routes");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
+const errorHandler = require("./middlewares/errorHandler");
 
-const app = express()
-const port = 3001
-const routes = require('./routes')
-
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('Banco de dados conectado com sucesso!');
-    })
-    .catch((err) => {
-        console.log('Erro ao conectar com o banco de dados!', err);
-    })
+const app = express();
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
+
+app.use(requestLogger);
 
 app.use(routes);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.use(errorLogger);
+app.use(errors());
+app.use(errorHandler);
+
+module.exports = app;

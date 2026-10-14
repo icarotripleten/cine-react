@@ -1,7 +1,8 @@
-module.exports = (roleNecessario) => (req, res, next) => {
-    if (!req.user || !req.user.role || req.user.role != roleNecessario) {
-        return res.status(403).send({ message: 'Usuário sem permissão!' });
-    }
+const { ForbiddenError } = require("../errors");
 
-    next();
-}
+module.exports = (roleNecessario) => (req, res, next) => {
+  if (!req.user || req.user.role !== roleNecessario) {
+    return next(new ForbiddenError("Voce nao tem permissao para esta acao"));
+  }
+  return next();
+};

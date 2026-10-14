@@ -1,0 +1,66 @@
+[
+  {
+    "titulo": "Interestelar",
+    "ano": 2014,
+    "genero": "Ficcao Cientifica",
+    "nota": 8.6,
+    "poster": null,
+    "resumo": "Exploradores viajam por um buraco de minhoca em busca de um novo lar para a humanidade."
+  },
+  {
+    "titulo": "A Origem",
+    "ano": 2010,
+    "genero": "Ficcao Cientifica",
+    "nota": 8.8,
+    "poster": null,
+    "resumo": "Um ladrao que invade sonhos recebe a missao de plantar uma ideia na mente de um alvo."
+  },
+  {
+    "titulo": "Cidade de Deus",
+    "ano": 2002,
+    "genero": "Drama",
+    "nota": 8.6,
+    "poster": null,
+    "resumo": "A vida numa favela do Rio de Janeiro atraves dos olhos de um jovem fotografo."
+  },
+  {
+    "titulo": "Parasita",
+    "ano": 2019,
+    "genero": "Drama",
+    "nota": 8.5,
+    "poster": null,
+    "resumo": "Uma familia pobre se infiltra na vida de uma familia rica com consequencias inesperadas."
+  },
+  {
+    "titulo": "O Senhor dos Aneis",
+    "ano": 2001,
+    "genero": "Fantasia",
+    "nota": 8.8,
+    "poster": null,
+    "resumo": "Um hobbit parte numa jornada para destruir um anel poderoso e salvar a Terra-media."
+  },
+  {
+    "titulo": "Pulp Fiction",
+    "ano": 1994,
+    "genero": "Crime",
+    "nota": 8.9,
+    "poster": null,
+    "resumo": "Historias entrelacadas de crime e redencao em Los Angeles."
+  },
+  {
+    "titulo": "Toy Story",
+    "ano": 1995,
+    "genero": "Animacao",
+    "nota": 8.3,
+    "poster": null,
+    "resumo": "Brinquedos ganham vida quando os humanos nao estao olhando."
+  },
+  {
+    "titulo": "Coringa",
+    "ano": 2019,
+    "genero": "Drama",
+    "nota": 8.4,
+    "poster": null,
+    "resumo": "A origem sombria de um dos viloes mais famosos dos quadrinhos."
+  }
+]
