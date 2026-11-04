@@ -1,16 +1,15 @@
 const jwt = require("jsonwebtoken");
 const { UnauthorizedError } = require("../errors");
+const { extrairToken } = require('./../utils/extrairToken');
 
 const { JWT_SECRET = "dev-secret-cinereact" } = process.env;
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
+  const token = extrairToken(req.headers.authorization);
 
-  if (!authorization || !authorization.startsWith("Bearer ")) {
+  if (!token) {
     return next(new UnauthorizedError("Token nao enviado"));
   }
-
-  const token = authorization.replace("Bearer ", "");
 
   let payload;
   try {

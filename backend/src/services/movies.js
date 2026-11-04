@@ -1,8 +1,15 @@
 const Movie = require("../models/movie");
 const { NotFoundError } = require("../errors");
+const { calcularMedia } = require('./../utils/calcularMedia');
 
 async function listar() {
   return Movie.find({});
+}
+
+async function buscarEstatisticas() {
+  const movies = await Movie.find({});
+
+  return calcularMedia(movies);
 }
 
 async function buscarPorId(id) {
@@ -36,4 +43,4 @@ async function remover(id) {
   return movie;
 }
 
-module.exports = { listar, buscarPorId, criar, atualizar, remover };
+module.exports = { listar, buscarPorId, criar, atualizar, remover, buscarEstatisticas };

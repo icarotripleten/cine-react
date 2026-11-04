@@ -5,6 +5,7 @@ const {
   createMovie,
   updateMovie,
   deleteMovie,
+  buscarEstatisticas
 } = require("../controllers/movies");
 const auth = require("../middlewares/auth");
 const authorize = require("../middlewares/authorize");
@@ -12,6 +13,8 @@ const { validarFilme, validarId } = require("../middlewares/validation");
 
 router.get("/", getMovies);
 router.get("/:id", validarId, getMovieById);
+
+router.get('/estatisticas', buscarEstatisticas)
 
 router.post("/", auth, authorize("admin"), validarFilme, createMovie);
 

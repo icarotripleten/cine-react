@@ -8,6 +8,14 @@ async function getMovies(req, res, next) {
   }
 }
 
+async function buscarEstatisticas(req, res, next) {
+  try {
+    res.status(200).send(await moviesService.buscarEstatisticas());
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function getMovieById(req, res, next) {
   try {
     res.status(200).send(await moviesService.buscarPorId(req.params.id));
@@ -47,4 +55,5 @@ module.exports = {
   createMovie,
   updateMovie,
   deleteMovie,
+  buscarEstatisticas
 };
