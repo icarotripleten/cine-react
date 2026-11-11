@@ -1,4 +1,4 @@
-const { calcularMedia } = require('./../src/utils/calcularMedia');
+const { calcularMedia } = require('../../src/utils/calcularMedia');
 
 describe('Calcular media das notas', () => {
     test('Devole 0 para uma lista vazia', () => {

@@ -12,6 +12,7 @@ const authorize = require("../middlewares/authorize");
 const { validarFilme, validarId } = require("../middlewares/validation");
 
 router.get("/", getMovies);
+
 router.get("/:id", validarId, getMovieById);
 
 router.get('/estatisticas', buscarEstatisticas)

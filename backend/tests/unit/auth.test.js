@@ -1,4 +1,4 @@
-const { extrairToken } = require('../src/utils/extrairToken');
+const { extrairToken } = require('../../src/utils/extrairToken');
 
 describe('Teste de token', () => {
     test.each([

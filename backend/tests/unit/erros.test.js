@@ -1,4 +1,4 @@
-const { NotFoundError } = require('../src/errors');
+const { NotFoundError } = require('../../src/errors');
 
 describe('Classes de erro', () => {
     test('NotFoundError tem statusCode 404 e mensagem recebida', () => {
