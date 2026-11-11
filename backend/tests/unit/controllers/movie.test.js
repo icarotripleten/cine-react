@@ -11,7 +11,7 @@ function criarFalsoRes() {
 
 describe('getMovies (controller', () => {
     test('Responde 200 com o que a service devolve', async () => {
-        const filmesFalsos = [{ id: 1, title: 'Filme 1', }];
+        const filmesFalso = [{ id: 1, title: 'Filme 1', }];
 
         jest.spyOn(moviesService, 'listar').mockResolvedValue(filmesFalsos);
 
