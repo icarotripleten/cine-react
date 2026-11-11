@@ -15,7 +15,7 @@ async function buscarEstatisticas() {
 async function buscarPorId(id) {
   const movie = await Movie.findById(id);
   if (!movie) {
-    throw new NotFoundError("Filme nao encontrado");
+    throw new NotFoundError("Filme não encontrado");
   }
   return movie;
 }
