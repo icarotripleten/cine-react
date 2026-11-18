@@ -5,7 +5,7 @@ import MovieList from './../components/MovieList'
 function FavoritosPage({ filmes }) {
     const { favoritosIds } = useContext(FavoritosContext)
 
-    const filmesFavoritados = filmes.filter(filme => favoritosIds.includes(filme.id));
+    const filmesFavoritados = filmes.filter(filme => favoritosIds.includes(filme._id));
 
     return (
         <div>

@@ -4,7 +4,7 @@ import { FavoritosContext } from "../contexts/FavoritosContext";
 function MovieCard({ filme }) {
     const { favoritosIds, alternarFavorito } = useContext(FavoritosContext);
 
-    const favoritado = favoritosIds.includes(filme.id);
+    const favoritado = favoritosIds.includes(filme._id);
 
     const GRADIENTES = {
         "Ficção Científica": "linear-gradient(135deg, #312e81, #0ea5e9)",
@@ -33,7 +33,7 @@ function MovieCard({ filme }) {
                 id="botao-card"
                 type="button"
                 className="btn-favoritar"
-                onClick={() => alternarFavorito(filme.id)}
+                onClick={() => alternarFavorito(filme._id)}
             >
                 {favoritado ? "Remover dos favoritos" : "Favoritar"}
             </button>
