@@ -8,7 +8,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import FavoritosPage from './pages/FavoritosPage.jsx'
 import HomePage from './pages/HomePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import { getMovies } from './services/api.js';
+import { getMovies, buscarFavoritos, adicionarFavorito, removerFavorito } from './services/api.js';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
 import { AuthContext } from './contexts/AuthContext.js';
@@ -19,12 +19,21 @@ function App() {
   const [favoritosIds, setFavoritosIds] = useState([]);
   const [filmes, setFilmes] = useState([]);
 
-  function alternarFavorito(id) {
-    setFavoritosIds((idsAtuais) =>
-      idsAtuais.includes(id)
-        ? idsAtuais.filter(favId => favId !== id)
-        : [...idsAtuais, id]
-    );
+  const [usuario, setUsuario] = useState(() => {
+    const salvo = localStorage.getItem("usuario");
+    return salvo ? JSON.parse(salvo) : null;
+  });
+
+  async function alternarFavorito(id) {
+    try {
+      const favoritos = favoritosIds.includes(id)
+        ? await removerFavorito(usuario.token, id)
+        : await adicionarFavorito(usuario.token, id);
+
+      setFavoritosIds(favoritos.map((filme) => filme._id));
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async function carregarFilmes() {
@@ -34,7 +43,7 @@ function App() {
   }
 
   function adicionarFilme(filme) {
-    filme = { ...filme, id: Date.now() }
+    filme = { ...filme, _id: String(Date.now()) }
 
     const newArrayMovies = [filme, ...filmes];
 
@@ -44,11 +53,6 @@ function App() {
   useEffect(() => {
     carregarFilmes();
   }, [])
-
-  const [usuario, setUsuario] = useState(() => {
-    const salvo = localStorage.getItem("usuario");
-    return salvo ? JSON.parse(salvo) : null;
-  });
 
   function entrar(dadosUsuario) {
     setUsuario(dadosUsuario);
@@ -65,6 +69,22 @@ function App() {
     } else {
       localStorage.removeItem("usuario");
     }
+  }, [usuario]);
+
+  useEffect(() => {
+    if (!usuario) {
+      setFavoritosIds([]);
+      return;
+    }
+
+    (async () => {
+      try {
+        const favoritos = await buscarFavoritos(usuario.token);
+        setFavoritosIds(favoritos.map((filme) => filme._id));
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   }, [usuario]);
 
   const location = useLocation();
